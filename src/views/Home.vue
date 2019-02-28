@@ -31,7 +31,7 @@
           <i class="myicon myicon-menu toggle-btn" @click="toggleCollapse"></i>
           <div class="system-title">vue电商后台系统</div>
           <div>
-            <span class="welcome ">您好，xxx</span>
+            <span class="welcome ">您好，{{$store.getters.username}}</span>
             <el-button type="text" class="back" @click="back">退出</el-button>
           </div>
         </el-header>
