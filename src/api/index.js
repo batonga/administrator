@@ -20,3 +20,7 @@ export const checkUser = params => {
 export const getUserList = params => {
     return axios.get('users', params).then(res => res.data)
 }
+// 改变用户状态信息
+export const changeUserState = params => {
+  return axios.put(`users/${params.uid}/state/${params.type}`).then(res => res.data)
+}

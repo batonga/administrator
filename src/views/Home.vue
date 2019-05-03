@@ -5,19 +5,19 @@
       <el-aside width="auto">
         <div class="logo"></div>
         <el-menu
-          default-active="2"
+          :router="true"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
           active-text-color
-           :collapse="isCollapse"
+          :collapse="isCollapse"
         >
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item index="2">
+            <el-menu-item index="/user">
               <i class="el-icon-menu"></i>
               <span slot="title">用户管理列表</span>
             </el-menu-item>
