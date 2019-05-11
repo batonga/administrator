@@ -48,3 +48,31 @@ export const getRolesList = params => {
 export const assignUserRoles = params => {
   return axios.put(`users/${params.id}/role`, {id:params.id, rid:params.rid}).then(res => res.data)
 }
+// 所有权限列表
+export const getRightsList = params => {
+  return axios.get(`rights/${params.type}`).then(res => res.data)
+}
+// 删除角色指定权限
+export const deleteRoleRight = params => {
+  return axios.delete(`roles/${params.roleId}/rights/${params.rightId}`).then(res => res.data)
+}
+// 角色授权
+export const roleAuthorization = (roleId, rids) => {
+  return axios.post(`roles/${roleId}/rights`, rids).then(res => res.data)
+}
+// 添加角色
+export const addRole = params => {
+  return axios.post('roles', params).then(res => res.data)
+}
+// 根据ID查询角色
+export const getRoleById = params => {
+  return axios.get(`roles/${params}`).then(res => res.data)
+}
+// 编辑提交角色
+export const editRole = params => {
+  return axios.put(`roles/${params.id}`, params).then(res => res.data)
+}
+// 删除角色
+export const deletRole = params => {
+  return axios.delete(`roles/${params}`).then(res => res.data)
+}
