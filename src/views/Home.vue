@@ -13,28 +13,14 @@
           active-text-color
           :collapse="isCollapse"
         >
-          <el-submenu index="1">
+          <el-submenu :index="item.path" v-for="item in menus" :key="item.id">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>用户管理</span>
+              <span>{{item.authName}}</span>
             </template>
-            <el-menu-item index="/user">
+            <el-menu-item :index="tag.path" v-for="tag in item.children" :key="tag.id">
               <i class="el-icon-menu"></i>
-              <span slot="title">用户管理列表</span>
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item index="/roles">
-              <i class="el-icon-menu"></i>
-              <span slot="title">角色列表</span>
-            </el-menu-item>
-            <el-menu-item index="/rights">
-              <i class="el-icon-menu"></i>
-              <span slot="title">权限列表</span>
+              <span slot="title">{{tag.authName}}</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>
@@ -46,7 +32,7 @@
           <i class="myicon myicon-menu toggle-btn" @click="toggleCollapse"></i>
           <div class="system-title">vue电商后台系统</div>
           <div>
-            <span class="welcome ">您好，{{$store.getters.username}}</span>
+            <span class="welcome">您好，{{$store.getters.username}}</span>
             <el-button type="text" class="back" @click="back">退出</el-button>
           </div>
         </el-header>
@@ -61,32 +47,42 @@
   </div>
 </template>
 <script>
-import { getUserList } from "@/api"
+import { getUserList, getMenus } from "@/api"
 export default {
   data() {
     return {
-      isCollapse: false
+      isCollapse: false,
+      menus:[]
     }
+  },
+  created() {
+    getMenus().then(res => {
+      this.menus = res.data
+      console.log(res.data)
+    })
   },
   mounted() {
     let obj = { params: { query: "", pagenum: 1, pagesize: 1 } }
     getUserList(obj).then(res => {
-      console.log(res)
+      this.$message({
+        message: '获取数据成功',
+        type: 'success'
+      })
     })
   },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
-    toggleCollapse(){
+    toggleCollapse() {
       this.isCollapse = !this.isCollapse
     },
-    back(){
-      localStorage.removeItem('mykey')
-      this.$router.push({name: 'Login'})
+    back() {
+      localStorage.removeItem("mykey")
+      this.$router.push({ name: "Login" })
     }
   }
 }
@@ -136,7 +132,7 @@ export default {
   .welcome {
     color: white;
   }
-  .back{
+  .back {
     color: #f00;
   }
 }
