@@ -58,7 +58,6 @@ export default {
   created() {
     getMenus().then(res => {
       this.menus = res.data
-      console.log(res.data)
     })
   },
   mounted() {

@@ -80,3 +80,11 @@ export const deletRole = params => {
 export const getMenus = () => {
   return axios.get('menus').then(res => res.data)
 }
+// 获取商品数据列表
+export const getCategoryList = params => {
+  return axios.get('categories', {params:params}).then(res => res.data)
+}
+// 添加商品分类
+export const addCategoryList = params => {
+  return axios.post('categories', params).then(res => res.data)
+}
